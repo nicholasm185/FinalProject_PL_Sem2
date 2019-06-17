@@ -41,7 +41,15 @@ public class AppWindow extends JFrame{
 
 //                handles IOException from writeObject (for when the server is no longer present and window is closed)
             }catch (IOException e1) {
-                e1.printStackTrace();
+                System.out.println(e1);
+                try {
+                    Client.out.close();
+                    Client.in.close();
+                    Client.socket.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                Login login = new Login();
             }
         }
     };
