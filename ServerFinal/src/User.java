@@ -57,6 +57,12 @@ public class User extends Thread{
             } catch(IOException | ClassNotFoundException e){
                 this.out = null;
                 this.in = null;
+            } catch (NullPointerException e){
+                try {
+                    disconnect();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
     }
