@@ -1,9 +1,14 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 // inherits JFrame, enabling Login to access JFrame class functions
@@ -155,6 +160,10 @@ public class AppWindow extends JFrame{
             Image newImg = image.getScaledInstance(100,100, Image.SCALE_SMOOTH);
             ImageIcon scaledimg = new ImageIcon(newImg);
 
+            ByteArrayInputStream bis = new ByteArrayInputStream(x.getPicdata());
+            BufferedImage bImage = ImageIO.read(bis);
+            ImageIO.write(bImage, "jpg", new File("savedimg.jpg"));
+
 //            prints "picture received" in the text history
             doc.insertString(doc.getLength(), "picture received\n", null);
             chatHistory.setCaretPosition(doc.getLength());
@@ -163,7 +172,7 @@ public class AppWindow extends JFrame{
             chatHistory.setCaretPosition(doc.getLength());
 
 //            handles BadLocationException from insertIcon
-        } catch (BadLocationException e) {
+        } catch (BadLocationException | IOException e) {
             e.printStackTrace();
         }
     }
